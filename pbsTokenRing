@@ -1,0 +1,9 @@
+#PBS -l nodes=4:ppn=12
+#PBS -l walltime=00:02:00
+#PBS -q batch
+#PBS -N mpitest
+#PBS -j oe
+
+#cat $PBS_NODEFILE
+cd ~/PA2
+mpiexec -np 4 --map-by ppr:1:node --hostfile $PBS_NODEFILE ./tokenRing
