@@ -32,6 +32,7 @@ int main(int argc, char **argv)
         printf("Rank %d\n", rank);
         printArray(array, SIZE);
 
+        //Ping ponging. Send to i, receive from i and send to next
         for(int i = 0; i < numtasks-1; i++)
         {   
             MPI_Send(array, SIZE, MPI_INT, i+1, 0, MPI_COMM_WORLD);
@@ -41,6 +42,7 @@ int main(int argc, char **argv)
             printArray(array, SIZE);
         }
     }
+    //Each rank greater than 1 will pong rank 0's ping
     if(rank>=1 && rank <= numtasks)
     {
         MPI_Recv(array, SIZE, MPI_INT, 0, 0, MPI_COMM_WORLD, &stat);
